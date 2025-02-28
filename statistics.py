@@ -59,30 +59,51 @@ class Statistics:
     dispersion, formatted using f-strings for readability.
     """
 
-    @staticmethod
-    def sample_mean(data: list[Union[int, float]]) -> str:
-        """Calculates the mean or average of a given list of integers or floats.
+    def __init__(self, data: list[Union[int, float]]):
+        """
+        Initializes the Statistics object with a dataset.
 
         Parameters:
             data: list[Union[int, float]]
                 A list of numerical values
 
-        Returns:
-            str
-                The sample mean formatted as an f-string.
-
         Raises:
             ValueError
                 If the list is empty.
         """
-        # Error Handling: Checks if the list is empty and raises a ValueError.
         if not data:
             raise ValueError("List cannot be empty")
 
-        mean = sum(data) / len(data)
+        self.data = data
+        self.results = {}
 
-        return f"Sample Mean: {mean:.2f}"
+    def __str__(self) -> str:
+        """
+        Returns a string representation of the computed statistics.
+
+        Returns:
+            str
+                A formatted string displaying the statistical results
+        """
+        if not self.results:
+            return "No computed statistics."
+
+        return "\n".join([f"{key}: {value:.2f}"
+                         f"" for key, value in self.results.items()])
+
+    def sample_mean(self) -> float:
+        """Calculates the mean or average of a given list of integers or floats.
+
+        Returns:
+            str
+                The sample mean formatted as an f-string.
+        """
+        # Error Handling: Checks if the list is empty and raises a ValueError.
+        mean = sum(self.data) / len(self.data)
+
+        return mean
 
 
 if __name__ == "__main__":
-    Statistics.sample_mean([1, 2, 3])
+    a = Statistics([1, 2, 3])
+    a.sample_mean()
